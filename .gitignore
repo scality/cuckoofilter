@@ -65,3 +65,4 @@ build/
 *.o
 *.so
 test
+test-chars

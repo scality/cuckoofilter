@@ -26,7 +26,7 @@ Napi::Object Cuckoo::Init(Napi::Env env, Napi::Object exports) {
 }
 
 Cuckoo::Cuckoo(const Napi::CallbackInfo& info) : Napi::ObjectWrap<Cuckoo>(info)  {
-  this->filter = new cuckoofilter::CuckooFilter<size_t, 12>(1000000);
+  this->filter = new cuckoofilter::CuckooFilter<Napi::String, 12, cuckoofilter::SingleTable, NapiStringHash>(1000000);
 }
 
 Cuckoo::~Cuckoo() {
@@ -34,13 +34,48 @@ Cuckoo::~Cuckoo() {
 }
 
 Napi::Value Cuckoo::Add(const Napi::CallbackInfo& info) {
-  Napi::Env env = info.Env();
-  return Napi::String::New(env, "world");
+  const Napi::Env env = info.Env();
+
+  if (info.Length() != 1) {
+    Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  if (!info[0].IsString()) {
+    Napi::TypeError::New(env, "Only strings are supported").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  Napi::String str = info[0].As<Napi::String>();
+
+  if (this->filter->Add(str) != cuckoofilter::Ok) {
+    Napi::Error::New(env, "Only strings are supported").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  return info.This();
 }
 
 Napi::Value Cuckoo::Contain(const Napi::CallbackInfo& info) {
-  Napi::Env env = info.Env();
-  return Napi::String::New(env, "world");
+  const Napi::Env env = info.Env();
+
+  if (info.Length() != 1) {
+    Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  if (!info[0].IsString()) {
+    Napi::TypeError::New(env, "Only strings are supported").ThrowAsJavaScriptException();
+    return env.Null();
+  }
+
+  Napi::String str = info[0].As<Napi::String>();
+
+  if (this->filter->Contain(str) == cuckoofilter::Ok) {
+    return Napi::Boolean::New(env, true);
+  } else {
+    return Napi::Boolean::New(env, false);
+  }
 }
 
 Napi::Value Cuckoo::Delete(const Napi::CallbackInfo& info) {

@@ -4,6 +4,13 @@
 #include <napi.h>
 #include "cuckoofilter.h"
 
+class NapiStringHash {
+  public:
+    uint64_t operator()(Napi::String str) const {
+      return cuckoofilter::HashUtil::BobHash(str);
+    }
+};
+
 class Cuckoo : public Napi::ObjectWrap<Cuckoo> {
  public:
   static Napi::Object Init(Napi::Env env, Napi::Object exports);
@@ -18,7 +25,7 @@ class Cuckoo : public Napi::ObjectWrap<Cuckoo> {
   Napi::Value SizeInBytes(const Napi::CallbackInfo& info);
 
   static Napi::FunctionReference constructor;
-  cuckoofilter::CuckooFilter<size_t, 12> *filter;
+  cuckoofilter::CuckooFilter<Napi::String, 12, cuckoofilter::SingleTable, NapiStringHash> *filter;
 };
 
 #endif
