@@ -713,54 +713,54 @@ uint32_t HashUtil::NullHash(const void *buf, size_t length,
  * Compatibility layer for OpenSSL < 1.1.0.
  * Implemented as proposed by https://wiki.openssl.org/index.php/OpenSSL_1.1.0_Changes
  */
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-#include <string.h>
-static void *OPENSSL_zalloc(size_t num)
-{
-  void *ret = OPENSSL_malloc(num);
+// #if OPENSSL_VERSION_NUMBER < 0x10100000L
+// #include <string.h>
+// static void *OPENSSL_zalloc(size_t num)
+// {
+//   void *ret = OPENSSL_malloc(num);
+// 
+//   if (ret != NULL)
+//       memset(ret, 0, num);
+//   return ret;
+// }
+// 
+// EVP_MD_CTX *EVP_MD_CTX_new(void)
+// {
+//    return (EVP_MD_CTX *)OPENSSL_zalloc(sizeof(EVP_MD_CTX));
+// }
+// 
+// void EVP_MD_CTX_free(EVP_MD_CTX *ctx)
+// {
+//    EVP_MD_CTX_cleanup(ctx);
+//    OPENSSL_free(ctx);
+// }
+// #endif
+// 
+// std::string HashUtil::MD5Hash(const char *inbuf, size_t in_length) {
+//   EVP_MD_CTX *mdctx;
+//   unsigned char md_value[EVP_MAX_MD_SIZE];
+//   unsigned int md_len;
+// 
+//   mdctx = EVP_MD_CTX_new();
+//   EVP_DigestInit(mdctx, EVP_md5());
+//   EVP_DigestUpdate(mdctx, (const void *)inbuf, in_length);
+//   EVP_DigestFinal_ex(mdctx, md_value, &md_len);
+//   EVP_MD_CTX_free(mdctx);
+// 
+//   return std::string((char *)md_value, (size_t)md_len);
+// }
 
-  if (ret != NULL)
-      memset(ret, 0, num);
-  return ret;
-}
-
-EVP_MD_CTX *EVP_MD_CTX_new(void)
-{
-   return (EVP_MD_CTX *)OPENSSL_zalloc(sizeof(EVP_MD_CTX));
-}
-
-void EVP_MD_CTX_free(EVP_MD_CTX *ctx)
-{
-   EVP_MD_CTX_cleanup(ctx);
-   OPENSSL_free(ctx);
-}
-#endif
-
-std::string HashUtil::MD5Hash(const char *inbuf, size_t in_length) {
-  EVP_MD_CTX *mdctx;
-  unsigned char md_value[EVP_MAX_MD_SIZE];
-  unsigned int md_len;
-
-  mdctx = EVP_MD_CTX_new();
-  EVP_DigestInit(mdctx, EVP_md5());
-  EVP_DigestUpdate(mdctx, (const void *)inbuf, in_length);
-  EVP_DigestFinal_ex(mdctx, md_value, &md_len);
-  EVP_MD_CTX_free(mdctx);
-
-  return std::string((char *)md_value, (size_t)md_len);
-}
-
-std::string HashUtil::SHA1Hash(const char *inbuf, size_t in_length) {
-  EVP_MD_CTX *mdctx;
-  unsigned char md_value[EVP_MAX_MD_SIZE];
-  unsigned int md_len;
-
-  mdctx = EVP_MD_CTX_new();
-  EVP_DigestInit(mdctx, EVP_sha1());
-  EVP_DigestUpdate(mdctx, (const void *)inbuf, in_length);
-  EVP_DigestFinal_ex(mdctx, md_value, &md_len);
-  EVP_MD_CTX_free(mdctx);
-
-  return std::string((char *)md_value, (size_t)md_len);
-}
+// std::string HashUtil::SHA1Hash(const char *inbuf, size_t in_length) {
+//   EVP_MD_CTX *mdctx;
+//   unsigned char md_value[EVP_MAX_MD_SIZE];
+//   unsigned int md_len;
+// 
+//   mdctx = EVP_MD_CTX_new();
+//   EVP_DigestInit(mdctx, EVP_sha1());
+//   EVP_DigestUpdate(mdctx, (const void *)inbuf, in_length);
+//   EVP_DigestFinal_ex(mdctx, md_value, &md_len);
+//   EVP_MD_CTX_free(mdctx);
+// 
+//   return std::string((char *)md_value, (size_t)md_len);
+// }
 }  // namespace cuckoofilter

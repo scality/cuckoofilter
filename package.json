@@ -1,0 +1,41 @@
+{
+  "name": "cuckoofilter",
+  "version": "0.0.1",
+  "description": "A native implementation of a cuckoofilter",
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "install": "node-gyp-build",
+    "test": "standard | snazzy && tap test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcollina/cuckoofilter.git"
+  },
+  "keywords": [
+    "cuckoo",
+    "cuckoofilter",
+    "filter",
+    "bloom",
+    "bloomfilter"
+  ],
+  "author": "Matteo Collina <hello@matteocollina.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/mcollina/cuckoofilter/issues"
+  },
+  "homepage": "https://github.com/mcollina/cuckoofilter#readme",
+  "devDependencies": {
+    "snazzy": "^7.1.1",
+    "standard": "^11.0.1",
+    "tap": "^11.1.2"
+  },
+  "dependencies": {
+    "node-addon-api": "^1.2.0",
+    "node-gyp-build": "^3.3.0"
+  },
+  "gypfile": true
+}

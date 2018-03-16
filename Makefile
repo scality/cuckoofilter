@@ -8,7 +8,7 @@ OPT = -g -ggdb
 
 CFLAGS += --std=c++11 -fno-strict-aliasing -Wall -c -I. -I./include -I/usr/include/ -I./src/ $(OPT)
 
-LDFLAGS+= -Wall -lpthread -lssl -lcrypto
+LDFLAGS+= -Wall -lpthread
 
 LIBOBJECTS = \
 	./src/hashutil.o \
