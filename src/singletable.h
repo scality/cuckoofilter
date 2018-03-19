@@ -25,7 +25,7 @@ class SingleTable {
 
   struct Bucket {
     char bits_[kBytesPerBucket];
-  } __attribute__((__packed__));
+  };
 
   // using a pointer adds one more indirection
   Bucket *buckets_;
