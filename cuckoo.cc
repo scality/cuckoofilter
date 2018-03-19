@@ -14,8 +14,8 @@ Napi::Object Cuckoo::Init(Napi::Env env, Napi::Object exports) {
     InstanceMethod("add", &Cuckoo::Add),
     InstanceMethod("contain", &Cuckoo::Contain),
     InstanceMethod("delete", &Cuckoo::Delete),
-    InstanceMethod("size", &Cuckoo::Size),
-    InstanceMethod("sizeInBytes", &Cuckoo::SizeInBytes)
+    InstanceAccessor("size", &Cuckoo::Size, NULL),
+    InstanceAccessor("bytes", &Cuckoo::SizeInBytes, NULL)
   });
 
   constructor = Napi::Persistent(func);
@@ -120,12 +120,12 @@ Napi::Value Cuckoo::Delete(const Napi::CallbackInfo& info) {
 
 Napi::Value Cuckoo::Size(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  return Napi::String::New(env, "world");
+  return Napi::Number::New(env, this->filter->Size());
 }
 
 Napi::Value Cuckoo::SizeInBytes(const Napi::CallbackInfo& info) {
   Napi::Env env = info.Env();
-  return Napi::String::New(env, "world");
+  return Napi::Number::New(env, this->filter->SizeInBytes());
 }
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
