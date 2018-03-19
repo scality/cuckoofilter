@@ -1,6 +1,6 @@
 {
   "name": "cuckoofilter",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A native implementation of a cuckoofilter",
   "main": "index.js",
   "directories": {
