@@ -3,7 +3,7 @@
 const t = require('tap')
 const CuckooFilter = require('.')
 
-const filter = new CuckooFilter()
+const filter = new CuckooFilter(1024)
 
 t.equal(filter.add('hello world'), filter)
 t.equal(filter.contain('hello world'), true)
@@ -62,4 +62,4 @@ t.equal(filter.size, 0)
 })()
 
 // current size with the given parameters
-t.equal(filter.bytes, 1572864)
+t.equal(filter.bytes, 3072)

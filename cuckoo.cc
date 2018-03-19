@@ -26,7 +26,21 @@ Napi::Object Cuckoo::Init(Napi::Env env, Napi::Object exports) {
 }
 
 Cuckoo::Cuckoo(const Napi::CallbackInfo& info) : Napi::ObjectWrap<Cuckoo>(info)  {
-  this->filter = new cuckoofilter::CuckooFilter<Napi::String, 12, cuckoofilter::SingleTable, NapiStringHash>(1000000);
+  const Napi::Env env = info.Env();
+
+  if (info.Length() != 1) {
+    Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
+    return;
+  }
+
+  if (!info[0].IsNumber()) {
+    Napi::TypeError::New(env, "You must pass the filter size").ThrowAsJavaScriptException();
+    return;
+  }
+
+  Napi::Number num = info[0].As<Napi::Number>();
+
+  this->filter = new cuckoofilter::CuckooFilter<Napi::String, 12, cuckoofilter::SingleTable, NapiStringHash>(num.Uint32Value());
 }
 
 Cuckoo::~Cuckoo() {

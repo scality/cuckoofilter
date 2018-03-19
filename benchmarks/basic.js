@@ -6,7 +6,7 @@ const Cuckoo = require('..')
 const CuckooFilter = require('cuckoo-filter').CuckooFilter
 const BloomFilter = require('bloomfilter').BloomFilter
 
-const cuckoo = new Cuckoo()
+const cuckoo = new Cuckoo(1024)
 const cuckoofilter = new CuckooFilter(200, 4, 2)
 
 const bloom = new BloomFilter(
