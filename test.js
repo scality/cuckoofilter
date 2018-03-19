@@ -34,17 +34,19 @@ t.equal(filter.contain('hello world'), false)
 t.equal(filter.delete('hello matteo'), filter)
 t.equal(filter.contain('hello matteo'), false)
 
-{
+;(function () {
   var n = 10
-  var key = 'something three times'
-  for (var i = 0; i < n; i++) {
+  var key = 'something repeated'
+  var i
+
+  for (i = 0; i < n; i++) {
     filter.add(key)
   }
 
   t.equal(filter.contain(key), true)
 
-  for (var i = 0; i < n; i++) {
+  for (i = 0; i < n; i++) {
     filter.delete(key)
     t.equal(filter.contain(key), false)
   }
-}
+})()

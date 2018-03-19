@@ -13,7 +13,8 @@ Napi::Object Cuckoo::Init(Napi::Env env, Napi::Object exports) {
   Napi::Function func = DefineClass(env, "CuckooFilter", {
     InstanceMethod("add", &Cuckoo::Add),
     InstanceMethod("contain", &Cuckoo::Contain),
-    InstanceMethod("delete", &Cuckoo::Delete), InstanceMethod("size", &Cuckoo::Size),
+    InstanceMethod("delete", &Cuckoo::Delete),
+    InstanceMethod("size", &Cuckoo::Size),
     InstanceMethod("sizeInBytes", &Cuckoo::SizeInBytes)
   });
 
