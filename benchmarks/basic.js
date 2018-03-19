@@ -6,7 +6,7 @@ const Cuckoo = require('..')
 const CuckooFilter = require('cuckoo-filter').CuckooFilter
 const BloomFilter = require('bloomfilter').BloomFilter
 
-const cuckoo = new Cuckoo(1024)
+const cuckoo = new Cuckoo(1024 * 8)
 const cuckoofilter = new CuckooFilter(200, 4, 2)
 
 const bloom = new BloomFilter(
@@ -18,19 +18,19 @@ cuckoo.add('hello world')
 cuckoofilter.add('hello world')
 bloom.add('hello world')
 
-suite.add('cuckoo add', function () {
+suite.add('cuckoofilter add', function () {
   cuckoo.add('hello world' + Math.random())
 })
 
-suite.add('cuckoo contain', function () {
+suite.add('cuckoofilter contain', function () {
   cuckoo.contain('hello world')
 })
 
-suite.add('cuckoofilter add', function () {
+suite.add('cuckoo-filter add', function () {
   cuckoofilter.add('hello world' + Math.random())
 })
 
-suite.add('cuckoofilter contains', function () {
+suite.add('cuckoo-filter contains', function () {
   cuckoofilter.contains('hello world')
 })
 
