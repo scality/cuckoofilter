@@ -18,11 +18,11 @@ cuckoo.add('hello world')
 cuckoofilter.add('hello world')
 bloom.add('hello world')
 
-suite.add('cuckoofilter add', function () {
+suite.add('cuckoofilter-native add', function () {
   cuckoo.add('hello world' + Math.random())
 })
 
-suite.add('cuckoofilter contain', function () {
+suite.add('cuckoofilter-native contain', function () {
   cuckoo.contain('hello world')
 })
 

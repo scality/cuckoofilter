@@ -1,5 +1,4 @@
-Cuckoo Filter
-============
+# Cuckoo Filter
 
 Cuckoo filter is a Bloom filter replacement for approximated set-membership queries. While Bloom filters are well-known space-efficient data structures to serve queries like "if item x is in a set?", they do not support deletion. Their variances to enable deletion (like counting Bloom filters) usually require much more space.
 
@@ -14,7 +13,7 @@ This is Node.js binding for the amazing
 ## Install
 
 ```
-$ npm install cuckoofilter
+$ npm install cuckoofilter-native
 ```
 
 ## Usage
@@ -22,7 +21,7 @@ $ npm install cuckoofilter
 Here is a simple example for the basic usage of cuckoo filter.
 
 ```js
-const CuckooFilter = require('cuckoofilter')
+const CuckooFilter = require('cuckoofilter-native')
 
 const filter = new CuckooFilter(1024)
 
@@ -51,8 +50,8 @@ Feel free to send a PR.
 This library is fast:
 
 ```
-cuckoofilter add x 1,097,031 ops/sec ±2.12% (82 runs sampled)
-cuckoofilter contain x 3,286,894 ops/sec ±2.08% (84 runs sampled)
+cuckoofilter-native add x 1,097,031 ops/sec ±2.12% (82 runs sampled)
+cuckoofilter-native contain x 3,286,894 ops/sec ±2.08% (84 runs sampled)
 cuckoo-filter add x 2,267 ops/sec ±13.26% (16 runs sampled)
 cuckoo-filter contains x 31,680 ops/sec ±4.85% (70 runs sampled)
 bloomfilter add x 773,499 ops/sec ±2.38% (86 runs sampled)
