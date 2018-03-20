@@ -146,5 +146,5 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
   return Cuckoo::Init(env, exports);
 }
 
-NODE_API_MODULE(cuckoo, Init)
+NODE_API_MODULE(NODE_GYP_MODULE_NAME, Init)
 
