@@ -2,13 +2,20 @@
 #define CUCKOO_H
 
 #include <napi.h>
+#include <openssl/md5.h>
 #include "cuckoofilter.h"
 
 class NapiStringHash {
   public:
-    uint64_t operator()(Napi::String str) const {
-      return cuckoofilter::HashUtil::BobHash(str);
-    }
+  uint64_t operator()(Napi::String n_str) const {
+    const std::string str(n_str);
+    union {
+      unsigned char md5buf[16];
+      uint64_t hash;
+    } u;
+    MD5((const unsigned char *)str.data(), str.length(), u.md5buf);
+    return u.hash;
+  }
 };
 
 class Cuckoo : public Napi::ObjectWrap<Cuckoo> {

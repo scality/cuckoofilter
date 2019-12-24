@@ -9,7 +9,8 @@
   },
   "scripts": {
     "install": "node-gyp-build",
-    "test": "standard | snazzy && tap test.js",
+    "test": "mocha -t 60000 --recursive tests/unit",
+    "large_test": "CUCKOOFILTER_TEST_MAX_ITEMS=50000000 mocha -t 1800000 --recursive tests/unit",
     "prebuild": "prebuildify --napi"
   },
   "repository": {
