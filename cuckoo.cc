@@ -62,13 +62,6 @@ Napi::Value Cuckoo::Add(const Napi::CallbackInfo& info) {
 
   Napi::String str = info[0].As<Napi::String>();
 
-  // do not add twice, we cannot support unlimited adding
-  // it will fail after ~10 add with the same parameter
-  // otherwise
-  if (this->filter->Contain(str) == cuckoofilter::Ok) {
-    return info.This();
-  }
-
   const int res = this->filter->Add(str);
 
   if (res == cuckoofilter::Ok) {
