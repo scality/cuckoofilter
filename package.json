@@ -34,6 +34,7 @@
     "benchmark": "^2.1.4",
     "bloomfilter": "0.0.16",
     "cuckoo-filter": "^1.0.4",
+    "mocha": "^11.1.0",
     "pre-commit": "^1.2.2",
     "prebuildify": "^2.6.0",
     "snazzy": "^7.1.1",
