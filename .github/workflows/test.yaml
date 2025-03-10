@@ -1,0 +1,21 @@
+---
+name: test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: yarn install
+        run: yarn install
+      - name: Run tests
+        run: yarn test
+      - name: Run large tests
+        run: yarn large_test
